@@ -9,7 +9,7 @@ import os
 from datetime import datetime
 
 # Prompt user for directory and folder creation
-directory = "/Users/gsikora/Desktop/GH/June"
+directory = "/Users/gsikora/Desktop/GH/July"
 create_folder = input("\nCreate a new folder? (y/n): ")
 
 if create_folder.lower() == "y":
