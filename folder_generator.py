@@ -7,6 +7,8 @@
 
 import os
 from datetime import datetime
+import shutil
+from pathlib import Path
 
 base_directory = "/Users/gsikora/Desktop/GH"
 current_date = datetime.now().strftime("%m.%d.%Y")
@@ -32,7 +34,6 @@ def create_daily_folder(base_directory, current_date, current_month, month_dicti
     if current_month in month_dictionary:
         month = month_dictionary[current_month]
         new_folder_path = os.path.join(base_directory, month)
-        
         # Create the folder for the month if it doesn't exist
         try:
             os.mkdir(new_folder_path)
@@ -48,5 +49,24 @@ def create_daily_folder(base_directory, current_date, current_month, month_dicti
             print(f"\nFolder '{current_date}' already exists in '{new_folder_path}'.")
     else:
         print("\nThe month is not found in the dictionary.")
-        
+
 create_daily_folder(base_directory, current_date, current_month, month_dictionary)
+
+# Delete past month's files on the first day of the new month
+def remove_folder_on_first_day_of_month(base_directory):
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    
+    today = datetime.today()
+    past_month = months[today.month - 2]
+    past_month_directory = os.path.join(base_directory, past_month)
+
+    if str(today.day) == "31":
+        try:
+            shutil.rmtree(past_month_directory)
+            print(f"{past_month_directory} was removed successfully")
+        except Exception as e:
+            print(f"Unable to delete {past_month_directory}: {e}")
+    else:
+        print('not the first day of the month')
+
+remove_folder_on_first_day_of_month(base_directory)
