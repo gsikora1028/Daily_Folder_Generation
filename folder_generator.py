@@ -60,7 +60,7 @@ def remove_folder_on_first_day_of_month(base_directory):
     past_month = months[today.month - 2]
     past_month_directory = os.path.join(base_directory, past_month)
 
-    if str(today.day) == "1":
+    if str(today.day) == "1" or str(today.day) == "2" or str(today.day) == "3":
         try:
             shutil.rmtree(past_month_directory)
             print(f"{past_month_directory} was removed successfully")
